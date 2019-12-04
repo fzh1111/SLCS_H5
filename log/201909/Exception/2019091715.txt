@@ -1,0 +1,99 @@
+-------------------------------15:45:56--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:46:07--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:46:24--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:46:33--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:46:42--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:47:13--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:48:09--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:54:58--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------15:58:32--------------------------------------
+日志级别:Error
+日志消息:System.NotSupportedException: The member OrderTicketId of type WebFrame.Utils.Log cannot be used as a parameter value
+   在 Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler)
+   在 Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals)
+   在 Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache)
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 81
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add

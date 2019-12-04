@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>三里茶社</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="layer/layer.js"></script>
+    <script src="layer/laytpl.js"></script> 
+    <script src="../Scripts/src/lib/jquery.qrcode.min.js"></script>
+    <script src="bartable.js"></script>
+    <style>
+        table {
+            border: solid 1px green;
+            border-collapse: collapse;
+            overflow: auto;
+            overFlow-x: scroll;
+            border-style: solid;
+        }
+
+        tr th {
+            padding-left: 4px;
+            height: 27px;
+            width: 110px;
+            border: solid 1px green;
+        }
+
+        tr td {
+            height: 25px;
+            padding: 4px;
+            border: solid 1px green;
+        }
+    </style>
+
+
+    <style>
+        div .roomvid1 {
+            border: 1px solid #000;
+            border-radius: 5px;
+            float: left;
+            height: 350px;
+            width: 400px;
+            margin: 10px;
+            color: green
+        }
+
+        div .roomvid {
+            border: 1px solid #000;
+            border-radius: 5px;
+            float: left;
+            height: 350px;
+            width: 400px;
+            margin: 10px;
+            color: red
+        }
+
+        div .roomdetail {
+            border-bottom: 1px solid #000;
+            height: 310px;
+            max-width: 450px;
+            min-width: 320px;
+        }
+
+        div .roomsumit {
+            height: 40px;
+            width: 400px;
+        }
+
+        .submit {
+            width: 150px;
+            height: 30px;
+            float: left;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #e3a23a;
+            margin-left: 125px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+            color: white
+        }
+
+        .submit1 {
+            width: 150px;
+            height: 30px;
+            float: left;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #9BCD9B;
+            margin-left: 125px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+            color: white
+        }
+         
+    </style>
+
+
+    <style>
+         
+        .content {
+            height:330px;
+            width:320px; 
+        }
+        .code {
+            text-align: center;
+            height: 203px;
+            width: 316px;
+        }
+        .room {
+            text-align: center;
+            height: 41px;
+            width: 316px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.5rem 0;
+            color: #e3a23a;
+        }
+
+
+         .timeout {
+            height: 20px;
+            width: 316px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 3.2rem;
+            font-family: "微软雅黑";
+            font-weight: 300; 
+            color:red
+        }
+           .clean { 
+            width: 200px;
+            height: 40px; 
+            margin: 0 auto;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #e3a23a; 
+            font-size: 1.5rem;
+            color: white
+        }
+
+    </style>
+
+
+
+    <script type="text/html" id="roomtp">
+
+        {{# for(var i = 0, len = d.length; i < len; i++){  }}
+        <div class="{{d[i].AlarmStatus==1?'roomvid':'roomvid1'}}">
+            <div class="roomdetail">
+                <!--background-image:url({{d[i].RoomIcon}})-->
+                <div style="height:100%;width:100%;">
+                    <b><font size="5">{{ d[i].RoomName}}</font></b>
+
+                    <br />打扫时间： {{ d[i].CleanTime}}
+                    <br />状态：<b>{{d[i].NeedCleanName}}</b>
+                    <br />
+                    <table style="width:100%">
+                        <tr>
+                            <th>
+                                订单
+                            </th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>间隔(分)</th>
+                        </tr>
+                        {{# if(d[i].PreOrder.OrderId!=0){ }}
+                        <tr>
+                            <td>上一笔</td>
+                            <td>{{d[i].PreOrder.MinTime}}</td>
+                            <td>{{d[i].PreOrder.MaxTime}}</td>
+                            <td>{{d[i].PreOrder.TimeMiniter}}</td>
+                        </tr>
+                        {{# } }}
+
+                        {{# if(d[i].StartOrder.OrderId!=0){ }}
+                        <tr>
+                            <td>使用中</td>
+                            <td>{{d[i].StartOrder.MinTime}}</td>
+                            <td>{{d[i].StartOrder.MaxTime}}</td>
+                            <td>{{d[i].StartOrder.TimeMiniter}}</td>
+                        </tr>
+                        {{# } }}
+
+                        {{# if(d[i].ProOrder.OrderId!=0){ }}
+                        <tr>
+                            <td>下一笔</td>
+                            <td>{{d[i].ProOrder.MinTime}}</td>
+                            <td>{{d[i].ProOrder.MaxTime}}</td>
+                            <td>{{d[i].ProOrder.TimeMiniter}}</td>
+                        </tr>
+                        {{# } }}
+                    </table>
+                </div>
+            </div>
+            <div class="roomsumit"> 
+                <div class="{{d[i].NeedClean==1?'submit':'submit1'}}" onclick="ll.QrCode('{{d[i].StoreId}}','{{d[i].StoreName}}','{{d[i].RoomId}}','{{d[i].RoomName}}')">
+                    卫生打扫
+                </div>
+            </div>
+        </div>
+        {{# } }}
+    </script>
+
+
+</head>
+<body>
+    <div style="margin:10px;" id="bardiv">
+
+
+    </div>
+
+    <div id="tea" class="tea" style="display:none">
+        <div class="marks"></div>
+        <div class="content">
+            <div>
+                <div class="code"></div>
+                <div class="room">庐山</div>
+                <div class="timeout">
+                    <span id="min">00</span><font>:</font><span id="secend">00</span>
+                </div> 
+            </div>
+
+        </div>
+        <div class="clean" onclick="ll.CleanRoom()">
+            打扫完成
+        </div>
+    </div>
+</body>
+</html>

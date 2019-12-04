@@ -1,0 +1,4 @@
+-------------------------------16:08:51--------------------------------------
+日志级别:Error
+日志消息:{"errcode":40164,"errmsg":"invalid ip 117.25.82.57 ipv6 ::ffff:117.25.82.57, not in whitelist hint: [bslasa01311547]"}
+日志跟踪:ApiController.GetWeChatJsSign => WeChatService.GetTicket => WeChatService.GetToken

@@ -1,0 +1,46 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p --progress --colors ",
+    "dev": "webpack --progress --colors  --config webpack.dev.config.js",
+    "watch": "webpack --progress --colors --watch --config webpack.dev.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.16.1",
+    "babel-polyfill": "^6.26.0",
+    "jquery": "^3.1.1",
+    "jquery-qrcode": "^1.0.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^3.0.0",
+    "react-swiper": "^0.1.5",
+    "redux": "^3.7.2",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.2",
+    "webpack-dev-server": "^2.7.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.0.0",
+    "postcss-loader": "^2.0.6",
+    "react-redux": "^5.0.6",
+    "sass-loader": "^6.0.6",
+    "sortablejs": "^1.6.0",
+    "style-loader": "^0.15.0",
+    "webpack": "^3.0.0"
+  }
+}

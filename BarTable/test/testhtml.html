@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>三里茶社</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="layer/layer.js"></script>
+    <script src="layer/laytpl.js"></script>
+    <script src="paging.js"></script> 
+    <script src="testhtml.js"></script>
+    <link href="css.css" rel="stylesheet" />
+
+    <style>
+        .faulttable {
+            width: 600px;
+            border-radius: 5px;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+            .faulttable tr {
+                height: 30px
+            }
+
+            .faulttable th {
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+
+            .faulttable td {
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+
+        div .roomvid {
+            border: 1px solid #000;
+            border-radius: 5px;
+            float: left;
+            height: 350px;
+            color: white
+        }
+
+        div .roomdetail {
+            border-bottom: 1px solid #000;
+            height: 310px;
+            width: 400px;
+        }
+
+        div .roomsumit {
+            height: 40px;
+            width: 400px;
+        }
+
+        .submit {
+            width: 150px;
+            height: 30px;
+            float: left;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #e3a23a;
+            margin-left: 35px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+            color: white
+        }
+    </style>
+
+
+    <script type="text/html" id="roomtp">
+
+        {{# for(var i = 0, len = d.length; i < len; i++){  }}
+        <tr>
+            <td>{{d[i].AddTime}}</td>
+            <td>{{d[i].StoreId}}</td>
+            <td>{{d[i].StoreName}}</td>
+            <td>{{d[i].RoomId}}</td>
+            <td>{{d[i].RoomName}}</td>
+            <td>{{d[i].Description}}</td>
+            <td>{{d[i].UserName}}</td>
+        </tr>
+        {{# } }}
+    </script>
+
+
+</head>
+<body>
+
+    <table align="center" class="faulttable" style="width:100%;max-width:800px;" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>日期：</td>
+            <td>
+                <input type="date" id="startTime" value="{{(new Date()).Format("yyyy-MM-dd")}}" style="font-size: 0.9rem;" />
+            </td>
+
+            <td>
+                <div class="submit" id="picbutton">
+                    查询
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" class="faulttable" style="margin-top:10px;width:100%;max-width:800px;" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>订单编号</th>
+                <th>店铺ID</th>
+                <th>店铺名称</th>
+                <th>茶室id</th>
+                <th>茶室名称</th>
+                <th width="150px">故障</th>
+                <th>上报人</th>
+            </tr>
+        </thead>
+        <tbody id="faultlist"></tbody>
+        <tr>
+            <td colspan="7">
+
+                <div class="page digg roomvid" style="height:20px;max-width:800px;">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

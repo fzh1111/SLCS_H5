@@ -1,0 +1,52 @@
+﻿@using SanLiChaShe.Model;
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache,must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--删除默认的苹果工具栏和菜单栏-->
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <!-- 最上面变黑-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--禁止手机数字拨号-->
+    <meta name="format-detection" content="telephone=no">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- 是针对一些老的不识别viewport的浏览器，列如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <title>三里茶社</title>
+    <link href="~/Scripts/build/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="baseApp">
+        <div class="welcome">
+
+        </div>
+    </div>
+</body>
+</html>
+<script src="~/Scripts/src/lib/jquery-1.11.3.min.js"></script>
+<script src="~/Scripts/src/lib/jquery.qrcode.min.js"></script>
+<script src="~/Scripts/src/lib/TouchSlide.js"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=7dHcZQ7PhGuk4LAfVySmdhYmtjEwG5Aa"></script>
+<script type="text/javascript" src="https://apis.map.qq.com/tools/geolocation/min?key=LMEBZ-P7LRX-OZZ4K-Z54T3-2IDHJ-3OBR7&referer=myapp"></script>
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&libraries=place,convertor&key=LMEBZ-P7LRX-OZZ4K-Z54T3-2IDHJ-3OBR7"></script>
+<script src="~/Scripts/build/main.js?@Config.Versions"></script>
+<script src="~/Scripts/src/lib/previewImage.min.js"></script>
+
+<!-- <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&libraries=convertor"> </script> -->
+<!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+@RenderBody()

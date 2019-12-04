@@ -1,0 +1,28 @@
+-------------------------------09:05:14--------------------------------------
+日志级别:Error
+日志消息:MySql.Data.MySqlClient.MySqlException (0x80004005): Field 'Total_All' doesn't have a default value
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 87
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add
+-------------------------------09:05:18--------------------------------------
+日志级别:Error
+日志消息:MySql.Data.MySqlClient.MySqlException (0x80004005): Field 'Total_All' doesn't have a default value
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command)
+   在 Dapper.SqlMapper.ExecuteScalar[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 WebFrame.Utils.DbHelperDapper.Insert[T](String sql, Object param)
+   在 SanLiChaShe.Web.Controllers.OrderController.Add(Order model) 位置 F:\三里茶社\代码\前端\SanLiChaShe.Web\Controllers\Ord\OrderController.cs:行号 87
+日志跟踪:ControllerActionInvoker.InvokeActionMethod => <no type>.lambda_method => OrderController.Add

@@ -1,0 +1,194 @@
+﻿<!--
+    liaotuo
+    2016.09.25
+    判断点是否在圆形区域内(用于电子围栏)
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="layout" content="main">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        #dv {
+            width: 100%;
+            height: 100%;
+            top: 3rem;
+            position: absolute;
+            z-index: 1200;
+        }
+
+        .img .marker {
+            position: absolute;
+            width: 7rem;
+            border-radius: 100%;
+            height: 7rem;
+            z-index: 2000;
+        }
+
+        .nav {
+            width: 100%;
+            height: 3rem;
+            line-height: 3rem;
+            background: #E2A13C;
+        }
+
+        .navb {
+            border-radius: 0.3rem;
+            color: #efefef;
+            width: 15%;
+            text-align: center;
+            float: left;
+        }
+
+        .example1 {
+            border-radius: 0.3rem;
+            color: #efefef;
+            width: 15%;
+            text-align: center;
+            float: right;
+        }
+
+        .ss {
+            float: left;
+            text-align: center;
+            width: 60%;
+            margin-left: 5%;
+            height: 3rem;
+            text-align: center;
+            line-height: 3rem;
+        }
+
+        .ss1 {
+            float: left;
+            height: 2.4rem;
+            line-height: 2.4rem;
+            border-radius: 0rem;
+            margin-top: 0.1rem;
+            border-top-left-radius: 0.6rem;
+            border-bottom-left-radius: 0.6rem;
+            border: 0px;
+            width: 60%;
+        }
+
+        input[type=button], input[type=submit], input[type=file], button {
+            cursor: pointer;
+            -webkit-appearance: none;
+        }
+
+        .ss .ss2 {
+            float: left;
+            height: 2.73rem;
+            width: 28%;
+            font-size: 1.0rem;
+            border-radius: 0rem;
+            line-height: 2.6rem;
+            background: #FFFFFF;
+            font-family: "微软雅黑";
+            margin-top: 0.1rem;
+            border-top-right-radius: 0.6rem;
+            border-bottom-right-radius: 0.6rem;
+            border: 0px;
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3f8849d969be293330c222ae71464227"></script>
+
+
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="html2canvas.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".example1").on("click", function (event) {
+                event.preventDefault();
+                html2canvas(document.body, {
+                    allowTaint: true,
+                    taintTest: false,
+                    onrendered: function (canvas) {
+                        canvas.id = "mycanvas";
+                        //document.body.appendChild(canvas);
+                        //生成base64图片数据
+                        var dataUrl = canvas.toDataURL();
+                        var newImg = document.createElement("img");
+                        newImg.src = dataUrl;
+                        document.body.appendChild(newImg);
+                        alert(dataUrl);
+
+                    }
+                });
+            });
+
+        });
+
+    </script>
+    <title>三里茶社</title>
+
+
+
+</head>
+<body>
+    <form action="mps.aspx" method="post" target="frame3d">
+        <div class="nav">
+            <div class="navb" id="btns" onClick="changeVal(this);">标注</div><div class="ss">
+                <input id="suggestId" name="suggestId" type="text" class="ss1" required="required"><input name="submit" type="submit" id="submit" class="ss2" value="搜索">
+            </div><div class="example1" type="button">保存</div>
+        </div>
+    </form>
+    <div class="img" id="dv" style="display:none"></div>
+    <script type="text/javascript">
+        loadMapAutocomplete("suggestId");
+        function loadMapAutocomplete(mySuggestId) {
+            Ac = new BMap.Autocomplete(
+                {
+                    "input": suggestId,
+                });
+        }
+
+    </script>
+    <script>
+        function changeVal(obj) {
+            document.getElementById('dv').style.display = document.getElementById('dv').style.display == 'none' ? 'block' : 'none';
+            var val = document.getElementById("btns");
+            if (val.innerHTML == "标注") {
+                obj.innerHTML = "地图";
+            } else if (val.innerHTML == "地图") {
+                obj.innerHTML = "标注";
+            }
+
+        }
+        function createMarker(x, y) {
+            var div = document.createElement('img');
+            div.className = 'marker'; div.style.left = x + 'px'; div.style.top = y + 'px';
+            document.getElementById('dv').appendChild(div
+            )
+        }
+        document.getElementById('dv').onclick = function (e) {
+            e = e || window.event;
+            var x = e.offsetX || e.layerX, y = e.offsetY || e.layerY;
+            createMarker(x, y);
+        }
+
+        function createMarker(x, y) {
+            var img = document.getElementById('imgMarker');
+            if (!img) {//不存在创建
+                img = document.createElement('img'); img.id = 'imgMarker'; img.src = '/map/img/q6.png'; img.className = 'marker';
+                document.getElementById('dv').appendChild(img)
+            }
+            img.style.left = x + 'px'; img.style.top = y + 'px';
+        }
+
+    </script>
+
+    <iframe id="frame3d" name="frame3d" frameborder="0" width="100%" scrolling="auto"
+            onload="this.style.height=document.body.clientHeight"
+            height="100%" src="mps.aspx" mce_src="map.aspx"></iframe>
+</body>
+</html>
