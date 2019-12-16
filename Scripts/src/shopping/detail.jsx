@@ -12,10 +12,10 @@ export default class ShoppingDetail extends React.Component {
     this.state = {
       model: {},
       detailtime: "",
-        room: { Banner: [], ReserveTimes: [], MidNightTimes:[] },
+      room: { Banner: [], ReserveTimes: [], MidNightTimes: [] },
       roomtime: [],
-        ReserveTimes: [],
-        MidNightTimes: [],
+      ReserveTimes: [],
+      MidNightTimes: [],
       arr: [],
       arrr: [],
       time: [],
@@ -43,6 +43,7 @@ export default class ShoppingDetail extends React.Component {
     }
   }
   componentWillMount() {
+    this.initTime();
     this.getList();
     this.room()
     console.log(this.state.is_renew)
@@ -55,7 +56,28 @@ export default class ShoppingDetail extends React.Component {
     this.getmanjian()
   }
   componentWillUnmount() {
-    clearInterval(this.state.timer1); 
+    clearInterval(this.state.timer1);
+  }
+  initTime(){
+    Date.prototype.Format = function (fmt) { //author: meizz 
+      var o = {
+        "M+": this.getMonth() + 1,                 //月份   
+        "d+": this.getDate(),                    //日   
+        "h+": this.getHours(),                   //小时   
+        "m+": this.getMinutes(),                 //分   
+        "s+": this.getSeconds(),                 //秒   
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度   
+        "S": this.getMilliseconds()             //毫秒   
+      };
+      if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+      return fmt;
+    }
+    this.state.today = new Date().Format("yyyy-MM-dd");
+    this.state.model.PayTime = new Date().Format("yyyy-MM-dd");
   }
   getmanjian() {
     common.ajax("/Discount/GetListByRoomId/" + this.state.roomid, {}, (res) => {
@@ -71,8 +93,8 @@ export default class ShoppingDetail extends React.Component {
   }
   getList() {
     common.ajax("/order/getlist", { filters: { Status: 2 } }, (res) => {
-        if (res.code == 1) {
-             
+      if (res.code == 1) {
+
         if (res.data.rows.length > 0) {
           this.state.tishixufei = true;
           this.setState({})
@@ -80,11 +102,11 @@ export default class ShoppingDetail extends React.Component {
           this.state.tishixufei = false;
           this.setState({})
         }
-        }
-        this.tishi()
+      }
+      this.tishi()
 
     })
-       
+
   }
   getlunbo() {
     common.ajax('/Room/GetModel/' + this.props.params.id, {}, (res) => {
@@ -114,7 +136,7 @@ export default class ShoppingDetail extends React.Component {
   }
 
   map1(number) {
-    console.log('类型:',number)
+    console.log('类型:', number)
     var that = this
     console.log(that.state.room)
     console.log(1)
@@ -122,13 +144,13 @@ export default class ShoppingDetail extends React.Component {
       complete: function (result) {
         if (number == 2) {
           location.href = "https://apis.map.qq.com/uri/v1/marker?marker=coord:" + result.detail.location.lat + "," + result.detail.location.lng + ";title:" + that.state.room.Location + "&referer=myapp";
-        } else if(number==1){
+        } else if (number == 1) {
           location.href = `http://uri.amap.com/marker?position=${result.detail.location.lng},${result.detail.location.lat}&name=${that.state.room.Location}s&coordinate=gaode&callnative=1`
 
           // 百度地图
           // location.href = `http://api.map.baidu.com/marker?location=${res[0].lat},${res[0].lng}&title=${that.state.room.Location}&content=${that.state.room.Location}&output=html`
           // location.href = `http://api.map.baidu.com/marker?location=${result.detail.location.lat},${result.detail.location.lng}&title=${that.state.room.Location}&content=${that.state.room.Location}&output=html`
-        }else if (number==3){
+        } else if (number == 3) {
           location.href = `http://api.map.baidu.com/marker?location=${result.detail.location.lat},${result.detail.location.lng}&title=${that.state.room.Location}&content=${that.state.room.Location}&output=html&src=webapp.baidu.openAPIdemo&coord_type=wgs84`
         }
       }
@@ -154,90 +176,110 @@ export default class ShoppingDetail extends React.Component {
     }, { enableHighAccuracy: true });
     this.setState({})
   }
+  //TODO 设置页面时间
   setTime() {
-    Date.prototype.Format = function (fmt) { //author: meizz 
-      var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-      };
-      if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-      for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-      return fmt;
-    }
     var time = new Date(); //今天的日期
-
-    this.state.model.PayTime = time.Format("yyyy-MM-dd");
-
-    this.state.today = time.Format("yyyy-MM-dd");
-    this.state.roomtime = [
-      { time: this.state.model.PayTime + " 00:00:00" }, { time: this.state.model.PayTime + " 00:30:00" },
-      { time: this.state.model.PayTime + " 01:00:00" }, { time: this.state.model.PayTime + " 01:30:00" },
-      { time: this.state.model.PayTime + " 02:00:00" }, { time: this.state.model.PayTime + " 02:30:00" },
-      { time: this.state.model.PayTime + " 03:00:00" }, { time: this.state.model.PayTime + " 03:30:00" },
-      { time: this.state.model.PayTime + " 04:00:00" }, { time: this.state.model.PayTime + " 04:30:00" },
-      { time: this.state.model.PayTime + " 05:00:00" }, { time: this.state.model.PayTime + " 05:30:00" },
-      { time: this.state.model.PayTime + " 06:00:00" }, { time: this.state.model.PayTime + " 06:30:00" },
-      { time: this.state.model.PayTime + " 07:00:00" }, { time: this.state.model.PayTime + " 07:30:00" },
-      { time: this.state.model.PayTime + " 08:00:00" }, { time: this.state.model.PayTime + " 08:30:00" },
-      { time: this.state.model.PayTime + " 09:00:00" }, { time: this.state.model.PayTime + " 09:30:00" },
-      { time: this.state.model.PayTime + " 10:00:00" }, { time: this.state.model.PayTime + " 10:30:00" },
-      { time: this.state.model.PayTime + " 11:00:00" }, { time: this.state.model.PayTime + " 11:30:00" },
-      { time: this.state.model.PayTime + " 12:00:00" }, { time: this.state.model.PayTime + " 12:30:00" },
-      { time: this.state.model.PayTime + " 13:00:00" }, { time: this.state.model.PayTime + " 13:30:00" },
-      { time: this.state.model.PayTime + " 14:00:00" }, { time: this.state.model.PayTime + " 14:30:00" },
-      { time: this.state.model.PayTime + " 15:00:00" }, { time: this.state.model.PayTime + " 15:30:00" },
-      { time: this.state.model.PayTime + " 16:00:00" }, { time: this.state.model.PayTime + " 16:30:00" },
-      { time: this.state.model.PayTime + " 17:00:00" }, { time: this.state.model.PayTime + " 17:30:00" },
-      { time: this.state.model.PayTime + " 18:00:00" }, { time: this.state.model.PayTime + " 18:30:00" },
-      { time: this.state.model.PayTime + " 19:00:00" }, { time: this.state.model.PayTime + " 19:30:00" },
-      { time: this.state.model.PayTime + " 20:00:00" }, { time: this.state.model.PayTime + " 20:30:00" },
-      { time: this.state.model.PayTime + " 21:00:00" }, { time: this.state.model.PayTime + " 21:30:00" },
-      { time: this.state.model.PayTime + " 22:00:00" }, { time: this.state.model.PayTime + " 22:30:00" },
-      { time: this.state.model.PayTime + " 23:00:00" }, { time: this.state.model.PayTime + " 23:30:00" },
-    ]
-
+    this.state.roomtime=[]
+    if (this.state.model.PayTime === this.state.today) {
+      for (let i = 0; i < 48; i++) {
+        let Usetime = new Date(time.getTime() + i * 60 * 30 * 1000);
+        let hours=Usetime.getHours()
+        // console.log('minutes:',Usetime.getMinutes())
+        let minutes = Usetime.getMinutes() >= 30 ? '00' : '30';
+        hours=Usetime.getMinutes() >= 30?hours+1:hours;
+        if(hours==24){
+          hours=0
+        }
+        hours=hours<10?'0'+hours:hours
+        let timeString = Usetime.Format("yyyy-MM-dd hh:mm:ss");  //时间格式
+        var timeStringa=new Date(time.getTime() + (i+1) * 60 * 30 * 1000).Format("yyyy-MM-dd hh:mm:ss")
+        //调整
+        // console.log(timeString)
+        
+        
+        
+        if(hours=='00'){
+          timeString = timeStringa.slice(0, -8) +hours+':'+ minutes + ':00';
+        }else{
+          timeString = timeString.slice(0, -8) +hours+':'+ minutes + ':00';
+        }
+        if(timeString.indexOf('00:00:00')!=-1){
+          // console.log('进入')
+          this.state.roomtime.push({time:timeStringa.slice(5,10).replace('-','月')+'a'})
+        }
+        this.state.roomtime.push({ time: timeString });
+      }
+    } else {
+      this.state.roomtime = [
+        { time: this.state.model.PayTime + " 00:00:00" }, { time: this.state.model.PayTime + " 00:30:00" },
+        { time: this.state.model.PayTime + " 01:00:00" }, { time: this.state.model.PayTime + " 01:30:00" },
+        { time: this.state.model.PayTime + " 02:00:00" }, { time: this.state.model.PayTime + " 02:30:00" },
+        { time: this.state.model.PayTime + " 03:00:00" }, { time: this.state.model.PayTime + " 03:30:00" },
+        { time: this.state.model.PayTime + " 04:00:00" }, { time: this.state.model.PayTime + " 04:30:00" },
+        { time: this.state.model.PayTime + " 05:00:00" }, { time: this.state.model.PayTime + " 05:30:00" },
+        { time: this.state.model.PayTime + " 06:00:00" }, { time: this.state.model.PayTime + " 06:30:00" },
+        { time: this.state.model.PayTime + " 07:00:00" }, { time: this.state.model.PayTime + " 07:30:00" },
+        { time: this.state.model.PayTime + " 08:00:00" }, { time: this.state.model.PayTime + " 08:30:00" },
+        { time: this.state.model.PayTime + " 09:00:00" }, { time: this.state.model.PayTime + " 09:30:00" },
+        { time: this.state.model.PayTime + " 10:00:00" }, { time: this.state.model.PayTime + " 10:30:00" },
+        { time: this.state.model.PayTime + " 11:00:00" }, { time: this.state.model.PayTime + " 11:30:00" },
+        { time: this.state.model.PayTime + " 12:00:00" }, { time: this.state.model.PayTime + " 12:30:00" },
+        { time: this.state.model.PayTime + " 13:00:00" }, { time: this.state.model.PayTime + " 13:30:00" },
+        { time: this.state.model.PayTime + " 14:00:00" }, { time: this.state.model.PayTime + " 14:30:00" },
+        { time: this.state.model.PayTime + " 15:00:00" }, { time: this.state.model.PayTime + " 15:30:00" },
+        { time: this.state.model.PayTime + " 16:00:00" }, { time: this.state.model.PayTime + " 16:30:00" },
+        { time: this.state.model.PayTime + " 17:00:00" }, { time: this.state.model.PayTime + " 17:30:00" },
+        { time: this.state.model.PayTime + " 18:00:00" }, { time: this.state.model.PayTime + " 18:30:00" },
+        { time: this.state.model.PayTime + " 19:00:00" }, { time: this.state.model.PayTime + " 19:30:00" },
+        { time: this.state.model.PayTime + " 20:00:00" }, { time: this.state.model.PayTime + " 20:30:00" },
+        { time: this.state.model.PayTime + " 21:00:00" }, { time: this.state.model.PayTime + " 21:30:00" },
+        { time: this.state.model.PayTime + " 22:00:00" }, { time: this.state.model.PayTime + " 22:30:00" },
+        { time: this.state.model.PayTime + " 23:00:00" }, { time: this.state.model.PayTime + " 23:30:00" },
+      ]
+    }
+    
+   
+    // console.log('this.state.today:', this.state.today)
+    // console.log('this.state.model.PayTime:', this.state.model.PayTime)
     this.state.today_allTime = this.state.roomtime;
+    this.setState({})
   }
-
   room() {
-      common.ajax('/Room/GetModelTime?id=' + this.props.params.id +'&isnew='+ this.state.is_renew*1, {}, (res) => {
+    common.ajax('/Room/GetModelTime?id=' + this.props.params.id + '&isnew=' + this.state.is_renew * 1, {}, (res) => {
       if (res.code == 1) {
         this.state.room = res.data;
-          this.state.room.ReserveTimes = res.data.ReserveTimes;
-          this.state.room.MidNightTimes = res.data.MidNightTimes; 
+        this.state.room.ReserveTimes = res.data.ReserveTimes;
+        this.state.room.MidNightTimes = res.data.MidNightTimes;
 
-        if (this.state.model.PayTime == this.state.today) {
-          var newt = new Date();
-          var hh = newt.getHours()
-          var mm = newt.getMinutes()
-          if (hh < 10) {
-            hh = "0" + hh
-          }
-          if (mm < 10) {
-            mm = "0" + mm
-          }
-          var a = parseInt(hh * 2)
-          var b;
-          if (mm >= 30) {
-            b = 1
-          } else {
-            b = 0
-          }
-          this.state.long = a + b
-          var aaa = []
-          var c = (this.state.roomtime.slice(0, this.state.long + 1))
-          c.map((row) => {
-            aaa.push(row.time);
-          })
-            this.state.room.ReserveTimes = this.state.room.ReserveTimes.concat(aaa)
-            this.state.room.MidNightTimes = this.state.room.MidNightTimes.concat(aaa)
-        }
+        // if (this.state.model.PayTime == this.state.today) {
+        //   var newt = new Date();
+        //   var hh = newt.getHours()
+        //   var mm = newt.getMinutes()
+        //   if (hh < 10) {
+        //     hh = "0" + hh
+        //   }
+        //   if (mm < 10) {
+        //     mm = "0" + mm
+        //   }
+        //   var a = parseInt(hh * 2)
+        //   var b;
+        //   if (mm >= 30) {
+        //     b = 1
+        //   } else {
+        //     b = 0
+        //   }
+        //   this.state.long = a + b
+        //   console.log('this.state.long:',this.state.long)
+        //   var aaa = []
+        //   var c = (this.state.roomtime.slice(0, this.state.long + 1))
+        //   c.map((row) => {
+        //     aaa.push(row.time);
+        //   })
+        //   this.state.room.ReserveTimes = this.state.room.ReserveTimes.concat(aaa)
+        //   this.state.room.MidNightTimes = this.state.room.MidNightTimes.concat(aaa)
+        //   console.log("this.state.room.ReserveTimes:",this.state.room.ReserveTimes)
+        //   console.log("this.state.room.MidNightTimes:",this.state.room.MidNightTimes)
+        // }
         //续费页且RenewDiscount小于1
         if (res.data.RenewDiscount < 1 && this.state.is_renew == 1) {
           // this.state.RenewDiscount = res.data.RenewDiscount;
@@ -294,7 +336,8 @@ export default class ShoppingDetail extends React.Component {
     this.state.arr = this.state.arrr;
   }
   select(time, index) {
-    var a = parseInt(new Date(this.state.today.replace(/-/g, "/")).getTime() / 1000 / 60);
+    this.state.myTime=[]
+    var a = parseInt(new Date(this.state.model.PayTime.replace(/-/g, "/")).getTime() / 1000 / 60);
     if (sessionStorage.renew_time) {
       a = parseInt(new Date(sessionStorage.renew_time.slice(0, 11).replace(/-/g, "/")).getTime() / 1000 / 60)
     }
@@ -356,6 +399,7 @@ export default class ShoppingDetail extends React.Component {
         this.state.TodayTime = this.state.time;
         this.setState({})
       }
+      
       this.state.myTime = this.state.TodayTime.concat(this.state.TomorrowTime)
       this.state.myTime = this.arrayRemoval(this.state.myTime)
       this.state.myTime.sort((a, b) => {
@@ -402,6 +446,14 @@ export default class ShoppingDetail extends React.Component {
       }
     }
     this.setState({})
+    console.log('this.state.myTime.indexOf:',this.state.myTime.indexOf('a'))
+    this.state.myTime.map((row,index)=>{
+      if(row.indexOf('a')!=-1){
+        this.state.myTime.splice(index,1)
+        return 
+      }
+    })
+    
     console.log(this.state.myTime)
     //满减计算 有满减数据，且不是续费单
     if (this.state.myTime.length >= 3 && this.state.is_manjian && this.state.is_renew == 0) {
@@ -418,19 +470,19 @@ export default class ShoppingDetail extends React.Component {
       })
       if (arr.length > 0) {
         this.state.manjian_money = this.state.money - this.state.manjian[arr.length - 1].Subtract;
-      }else{
+      } else {
         this.state.manjian_money = this.state.money
       }
       this.setState({});
-      console.log(this.state.money)
-      console.log(this.state.manjian_money)
+      console.log('this.state.money:',this.state.money)
+      console.log("this.state.manjian_money:",this.state.manjian_money)
     } else {
       this.state.money = 0;
       this.state.manjian_money = 0;
       this.setState({})
     }
-    console.log("iiiii")
-    console.log(this.state.is_renew, this.state.is_showRenewDiscount)
+    // console.log("iiiii")
+    console.log('this.state.is_renew:',this.state.is_renew, this.state.is_showRenewDiscount)
 
     //续费计算
     if (this.state.myTime.length >= 3 && this.state.is_renew == 1 && this.state.is_showRenewDiscount) {
@@ -456,16 +508,16 @@ export default class ShoppingDetail extends React.Component {
     this.setState({})
   }
 
-    tishi() {
-        if (this.state.is_renew == 1) {
-            { tishi: false }
-        }
-        else if (this.state.tishixufei) {
-            this.setState({ tishi: true })
-        } else {
-            // this.submit_judge()
-        }
+  tishi() {
+    if (this.state.is_renew == 1) {
+      { tishi: false }
     }
+    else if (this.state.tishixufei) {
+      this.setState({ tishi: true })
+    } else {
+      // this.submit_judge()
+    }
+  }
   submit_judge() {
 
     console.log(sessionStorage.renew_time)
@@ -491,7 +543,7 @@ export default class ShoppingDetail extends React.Component {
         }
       }
     } else {//正常单
-      this.continuity_judge()
+      // this.continuity_judge()
       if (this.state.myTime.length == 0) {
         common.mes(this, "请选择时间")
       } else if (this.state.myTime.length == 1) {
@@ -518,13 +570,17 @@ export default class ShoppingDetail extends React.Component {
 
   }
   continuity_judge() {
+    
     //判断时间是否是连续的
     for (var i = 0; i <= this.state.myTime.length; i++) {
       if (this.state.myTime[i + 1]) {
+        console.log(this.state.myTime[i],parseInt(new Date(this.state.myTime[i].replace(/-/g, "/")).getTime() / 1000 / 60),this.state.myTime[i+1],parseInt(new Date(this.state.myTime[i + 1].replace(/-/g, "/")).getTime() / 1000 / 60))
         if (parseInt(new Date(this.state.myTime[i].replace(/-/g, "/")).getTime() / 1000 / 60) + 30 == parseInt(new Date(this.state.myTime[i + 1].replace(/-/g, "/")).getTime() / 1000 / 60)) {
+          console.log('连续的')
           this.state.is_continuity = true;
           this.setState({})
         } else {
+          console.log('不连续的')
           this.state.is_continuity = false;
           this.setState({})
           break;
@@ -532,7 +588,7 @@ export default class ShoppingDetail extends React.Component {
       }
     }
   }
-  
+
   submit() {
 
     this.setState({})
@@ -576,37 +632,42 @@ export default class ShoppingDetail extends React.Component {
     }
   }
   changetime() {
-    this.state.roomtime = [
-      { time: this.state.model.PayTime + " 00:00:00" }, { time: this.state.model.PayTime + " 00:30:00" },
-      { time: this.state.model.PayTime + " 01:00:00" }, { time: this.state.model.PayTime + " 01:30:00" },
-      { time: this.state.model.PayTime + " 02:00:00" }, { time: this.state.model.PayTime + " 02:30:00" },
-      { time: this.state.model.PayTime + " 03:00:00" }, { time: this.state.model.PayTime + " 03:30:00" },
-      { time: this.state.model.PayTime + " 04:00:00" }, { time: this.state.model.PayTime + " 04:30:00" },
-      { time: this.state.model.PayTime + " 05:00:00" }, { time: this.state.model.PayTime + " 05:30:00" },
-      { time: this.state.model.PayTime + " 06:00:00" }, { time: this.state.model.PayTime + " 06:30:00" },
-      { time: this.state.model.PayTime + " 07:00:00" }, { time: this.state.model.PayTime + " 07:30:00" },
-      { time: this.state.model.PayTime + " 08:00:00" }, { time: this.state.model.PayTime + " 08:30:00" },
-      { time: this.state.model.PayTime + " 09:00:00" }, { time: this.state.model.PayTime + " 09:30:00" },
-      { time: this.state.model.PayTime + " 10:00:00" }, { time: this.state.model.PayTime + " 10:30:00" },
-      { time: this.state.model.PayTime + " 11:00:00" }, { time: this.state.model.PayTime + " 11:30:00" },
-      { time: this.state.model.PayTime + " 12:00:00" }, { time: this.state.model.PayTime + " 12:30:00" },
-      { time: this.state.model.PayTime + " 13:00:00" }, { time: this.state.model.PayTime + " 13:30:00" },
-      { time: this.state.model.PayTime + " 14:00:00" }, { time: this.state.model.PayTime + " 14:30:00" },
-      { time: this.state.model.PayTime + " 15:00:00" }, { time: this.state.model.PayTime + " 15:30:00" },
-      { time: this.state.model.PayTime + " 16:00:00" }, { time: this.state.model.PayTime + " 16:30:00" },
-      { time: this.state.model.PayTime + " 17:00:00" }, { time: this.state.model.PayTime + " 17:30:00" },
-      { time: this.state.model.PayTime + " 18:00:00" }, { time: this.state.model.PayTime + " 18:30:00" },
-      { time: this.state.model.PayTime + " 19:00:00" }, { time: this.state.model.PayTime + " 19:30:00" },
-      { time: this.state.model.PayTime + " 20:00:00" }, { time: this.state.model.PayTime + " 20:30:00" },
-      { time: this.state.model.PayTime + " 21:00:00" }, { time: this.state.model.PayTime + " 21:30:00" },
-      { time: this.state.model.PayTime + " 22:00:00" }, { time: this.state.model.PayTime + " 22:30:00" },
-      { time: this.state.model.PayTime + " 23:00:00" }, { time: this.state.model.PayTime + " 23:30:00" },
-    ]
+      this.cancel();
+    // this.state.myTime=[]
+    // this.state.arrr = []
+    // this.state.arr = []
+    // this.state.time=[]
+    // this.state.roomtime = [
+    //   { time: this.state.model.PayTime + " 00:00:00" }, { time: this.state.model.PayTime + " 00:30:00" },
+    //   { time: this.state.model.PayTime + " 01:00:00" }, { time: this.state.model.PayTime + " 01:30:00" },
+    //   { time: this.state.model.PayTime + " 02:00:00" }, { time: this.state.model.PayTime + " 02:30:00" },
+    //   { time: this.state.model.PayTime + " 03:00:00" }, { time: this.state.model.PayTime + " 03:30:00" },
+    //   { time: this.state.model.PayTime + " 04:00:00" }, { time: this.state.model.PayTime + " 04:30:00" },
+    //   { time: this.state.model.PayTime + " 05:00:00" }, { time: this.state.model.PayTime + " 05:30:00" },
+    //   { time: this.state.model.PayTime + " 06:00:00" }, { time: this.state.model.PayTime + " 06:30:00" },
+    //   { time: this.state.model.PayTime + " 07:00:00" }, { time: this.state.model.PayTime + " 07:30:00" },
+    //   { time: this.state.model.PayTime + " 08:00:00" }, { time: this.state.model.PayTime + " 08:30:00" },
+    //   { time: this.state.model.PayTime + " 09:00:00" }, { time: this.state.model.PayTime + " 09:30:00" },
+    //   { time: this.state.model.PayTime + " 10:00:00" }, { time: this.state.model.PayTime + " 10:30:00" },
+    //   { time: this.state.model.PayTime + " 11:00:00" }, { time: this.state.model.PayTime + " 11:30:00" },
+    //   { time: this.state.model.PayTime + " 12:00:00" }, { time: this.state.model.PayTime + " 12:30:00" },
+    //   { time: this.state.model.PayTime + " 13:00:00" }, { time: this.state.model.PayTime + " 13:30:00" },
+    //   { time: this.state.model.PayTime + " 14:00:00" }, { time: this.state.model.PayTime + " 14:30:00" },
+    //   { time: this.state.model.PayTime + " 15:00:00" }, { time: this.state.model.PayTime + " 15:30:00" },
+    //   { time: this.state.model.PayTime + " 16:00:00" }, { time: this.state.model.PayTime + " 16:30:00" },
+    //   { time: this.state.model.PayTime + " 17:00:00" }, { time: this.state.model.PayTime + " 17:30:00" },
+    //   { time: this.state.model.PayTime + " 18:00:00" }, { time: this.state.model.PayTime + " 18:30:00" },
+    //   { time: this.state.model.PayTime + " 19:00:00" }, { time: this.state.model.PayTime + " 19:30:00" },
+    //   { time: this.state.model.PayTime + " 20:00:00" }, { time: this.state.model.PayTime + " 20:30:00" },
+    //   { time: this.state.model.PayTime + " 21:00:00" }, { time: this.state.model.PayTime + " 21:30:00" },
+    //   { time: this.state.model.PayTime + " 22:00:00" }, { time: this.state.model.PayTime + " 22:30:00" },
+    //   { time: this.state.model.PayTime + " 23:00:00" }, { time: this.state.model.PayTime + " 23:30:00" },
+    // ]
 
     // console.log(this.state.myTime)
-    this.state.arrr = []
-    this.state.arr = []
-    this.room();
+    this.setTime()
+   
+    // this.room();
     this.setState({})
   }
   render() {
@@ -660,7 +721,7 @@ export default class ShoppingDetail extends React.Component {
           </div>
           <div className="csyd">
             <h3>茶室预定</h3>
-            <p style={{ marginBottom: ".3rem"}}><span style={{fontSize:".9rem"}}>灰色为已被预订~请另外选择且时间必须是连续的哦~</span></p>
+            <p style={{ marginBottom: ".3rem" }}><span style={{ fontSize: ".9rem" }}>灰色为已被预订~请另外选择且时间必须是连续的哦~</span></p>
             <div className={this.state.is_manjian && !this.state.is_showRenewDiscount ? "flex manjian" : "hide"} style={{ fontSize: ".9rem" }}>
               <p className="name">满减</p>
               <div className="flex_wrap">
@@ -675,35 +736,49 @@ export default class ShoppingDetail extends React.Component {
             <h3>日期选择:<input style={{ fontSize: ".9rem" }} name={this.state.model.PayTime} type="date" value={this.state.model.PayTime} min={this.state.today} name="PayTime" onChange={(e) => { common.setModel(this, e); this.changetime() }} /></h3>
             <ul style={{ marginBottom: ".5rem" }}>
 
-                        {this.state.roomtime.map((row, index) => {
+              {this.state.roomtime.map((row, index) => {
+                if(row.time.indexOf('a')!=-1){
+                  return <div className="tt-insert"><div className="tt-inserta">{row.time.slice(0,-1)}</div></div>
+                  // if (this.state.model.PayTime < this.state.today) {
+                  //   return <div><br></br><div>111</div><li key={index}><a className='hA'>{row.time.slice(11, 16)}</a></li></div>
+                  // }
+  
+                  // // }
+                  // for (var i = 0; i < this.state.room.ReserveTimes.length; i++) {
+                  //   if (row.time.indexOf(this.state.room.ReserveTimes[i]) != -1) {
+                  //     return <div><br></br><div>111</div><li key={index} ><a className='hA'>{row.time.slice(11, 16)}</a></li></div>
+                  //   }
+                  // }
+  
+                  // for (var i = 0; i < this.state.room.MidNightTimes.length; i++) {
+                  //   if (row.time.indexOf(this.state.room.MidNightTimes[i]) != -1) {
+                  //     return <div><br></br><div>111</div><li key={index} ><a className='hA'>{row.time.slice(11, 16)}</a></li></div>
+                  //   }
+                  // }
+  
+                  // return <div style={{width:100+'%' }}><br></br><div className="tt-insert">111</div><li key={index}><a className={this.state.myTime.indexOf(row.time) != -1 ? "green" : "oA"}
+                  //   onClick={() => { this.select(row.time, index) }}>{row.time.slice(11, 16)}</a></li></div>
+                }
+                if (this.state.model.PayTime < this.state.today) {
+                  return <li key={index}><a className='hA'>{row.time.slice(11, 16)}</a></li>
+                }
 
-                            if (this.state.model.PayTime < this.state.today) {
-                                return <li key={index}><a className='hA'>{row.time.slice(11, 16)}</a></li>
-                            }
+                // }
+                for (var i = 0; i < this.state.room.ReserveTimes.length; i++) {
+                  if (row.time.indexOf(this.state.room.ReserveTimes[i]) != -1) {
+                    return <li key={index} ><a className='hA'>{row.time.slice(11, 16)}</a></li>
+                  }
+                }
 
-                            if (this.state.model.PayTime == this.state.today) {
-                                for (var i = 0; i < this.state.room.ReserveTimes.length; i++) {
-                                    if (row.time.indexOf(this.state.room.ReserveTimes[i]) != -1) {
-                                        return <li key={index}><a className='hA'>{row.time.slice(11, 16)}</a></li>
-                                    }
-                                }
+                for (var i = 0; i < this.state.room.MidNightTimes.length; i++) {
+                  if (row.time.indexOf(this.state.room.MidNightTimes[i]) != -1) {
+                    return <li key={index} ><a className='hA'>{row.time.slice(11, 16)}</a></li>
+                  }
+                }
 
-                            }
-                            for (var i = 0; i < this.state.room.ReserveTimes.length; i++) {
-                                if (row.time.indexOf(this.state.room.ReserveTimes[i]) != -1) {
-                                    return <li key={index} ><a className='hA'>{row.time.slice(11, 16)}</a></li>
-                                }
-                            }
-
-                            for (var i = 0; i < this.state.room.MidNightTimes.length; i++) {
-                                if (row.time.indexOf(this.state.room.MidNightTimes[i]) != -1) {
-                                    return <li key={index} ><a className='hA'>{row.time.slice(11, 16)}</a></li>
-                                }
-                            }
-
-                            return <li key={index}><a className={this.state.myTime.indexOf(row.time) != -1 ? "green" : "oA"}
-                                onClick={() => { this.select(row.time, index) }}>{row.time.slice(11, 16)}</a></li>
-                        })}
+                return <li key={index}><a className={this.state.myTime.indexOf(row.time) != -1 ? "green" : "oA"}
+                  onClick={() => { this.select(row.time, index) }}>{row.time.slice(11, 16)}</a></li>
+              })}
             </ul>
             <div className="flex_wrap manjian" style={{ justifyContent: "center" }}>
               <div className={this.state.is_manjian && !this.state.is_showRenewDiscount ? "flex" : "hide"} >
@@ -714,15 +789,15 @@ export default class ShoppingDetail extends React.Component {
                 })}
               </div>
               {/* <div className={this.state.is_manjian || this.state.is_showRenewDiscount ? "flex" : "hide"} > */}
-                <p style={{ color: "#e4a43c", textDecoration: "line-through" }}>{"原价￥:" + this.state.money}</p>
-                <p style={{ color: "#e4a43c" }}>{"现价￥:" + this.state.manjian_money}</p>
+              <p style={{ color: "#e4a43c", textDecoration: "line-through" }}>{"原价￥:" + this.state.money}</p>
+              <p style={{ color: "#e4a43c" }}>{"现价￥:" + this.state.manjian_money}</p>
               {/* </div> */}
             </div>
 
             <div className="btn" style={{ margin: "0 auto" }}>
-                        <a className="qxA" onClick={() => { this.cancel() }}>取消</a>
-                        {/*//this.state.is_renew == 1 ? this.submit_judge() : this.tishi()*/}
-              <a className="qdA" onClick={() => {  this.submit_judge()  }}>确定</a>
+              <a className="qxA" onClick={() => { this.cancel() }}>取消</a>
+              {/*//this.state.is_renew == 1 ? this.submit_judge() : this.tishi()*/}
+              <a className="qdA" onClick={() => { this.submit_judge() }}>确定</a>
               {/*<a className="qdA" onClick={() => { this.state.IsPutaway ? this.submit_judge() : "" }}>{this.state.IsPutaway ? "确定" : "房间已下架"}</a>*/}
             </div>
           </div>
@@ -773,14 +848,14 @@ export default class ShoppingDetail extends React.Component {
             <p>您有可续费的订单,是否前往续费？</p>
             <div className="flex_around">
               <div className="btns" onClick={() => { location.href = "#/users/myorder/1" }}>前往续费</div>
-                        <div className="btns on" onClick={() => { this.setState({ tishi: false }); }}>取消</div>
-                        {/*this.submit_judge()*/} 
+              <div className="btns on" onClick={() => { this.setState({ tishi: false }); }}>取消</div>
+              {/*this.submit_judge()*/}
 
-                    </div>
+            </div>
           </div>
         </div>
         <Mycomponent.Mes mes={this.state.mes} />
       </div>
-    ); 
+    );
   }
 }
