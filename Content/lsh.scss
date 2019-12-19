@@ -1762,7 +1762,7 @@ header .back {
 }
 
 .green {
-    background: green;
+    background: green !important;
 }
 
 .tcc_bg {
@@ -2319,4 +2319,40 @@ body{
     align-items: center;
     justify-content: center;
     border: 1px solid #eee;
+}
+.packingContainer{
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    .packingContainer-left{
+        margin-right: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #EBC9A4;
+        width: 4rem;
+        border-radius: 10px;
+        border: 1px solid #eee;
+        height: 1.5rem;
+        color: red;
+    }
+    .packingContainer-right{
+        color: #E7A639;
+    }
+}
+.packingBtnContainer{
+    display: flex;
+    margin-bottom: 0.3rem;
+    justify-content: center;
+    .packingBtn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        height: 1.5rem;
+        width:10rem;
+        background: #e4a43c;
+        border-color: #e4a43c;
+        color: #fff;
+    }
 }
