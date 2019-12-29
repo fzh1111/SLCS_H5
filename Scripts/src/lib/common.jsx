@@ -3,7 +3,7 @@ import $ from 'jquery';
 import React from 'react';
 let common = {
     ajax: function (path, data, callBack) {
-        path=' http://101.132.47.71'+path
+        // path=' http://101.132.47.71'+path
         if (typeof data == 'object') {
             data = JSON.stringify(data);
         }

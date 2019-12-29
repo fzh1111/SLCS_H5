@@ -54,7 +54,7 @@ export default class Main extends React.Component {
                         </div>
                     </header>*/}
                     {/* 头部和底部 */}
-                     <header className="new_header">
+                     {/* <header className="new_header">
                         <div className="flex_between" style={{ width: "100%", margin: "auto" }}>
                             <div className="search flex" onClick={()=>{location.href = "/#/map/home"}}><img src="images/home/fdj.png" style={{ width: "2.5vh", margin: "0 .3rem" }} />
                                 <input type="text" placeholder="福州" name="addr" value={this.state.model.addr} onChange={(e)=>{common.setModel(this,e),this.state.search_box = true}}/>
@@ -77,7 +77,7 @@ export default class Main extends React.Component {
                             <li className={sessionStorage.index == 3 ? "on" : ""}><a onClick={() => { location.href = "/#/service/home" }}><span>联系客服</span><i></i></a></li>
                             <li className={sessionStorage.index == 4 ? "on" : ""}><a onClick={() => { location.href = '/#/appointment/ShoppingMall' }}><span>三里商城</span><i></i></a></li>
                         </ul>
-                    </section>
+                    </section> */}
 
                 </div>
                 <div className={this.state.detail ? "boxss" : "lcb-hide"}>

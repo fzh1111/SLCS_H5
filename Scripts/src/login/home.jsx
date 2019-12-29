@@ -115,7 +115,7 @@ _setLimitTime() {
           </ul>
           <div className="flex xieyi">
             <input type="checkbox" id="xieyi" value={this.state.xieyi} onChange={(e) => { this.change(e.target.checked) }} />
-            <p>我已阅读,并同意<span onClick={() => { location.href = "/#/xieyi/home/" + 1 }}>《三里茶社服务协议》</span></p>
+            <p>我已阅读,并同意<span onClick={() => { location.href ="http://wx.sanlics.com/partner/xieyi.html" }}>《三里茶社服务协议》</span></p>
             {/*,<span onClick={()=>{location.href ="/#/xieyi/home/"+2}}>《APP退订和退款》</span>协议*/}
           </div>
           <a className="dlA" onClick={() => { this.login() }}>登录/注册</a>
