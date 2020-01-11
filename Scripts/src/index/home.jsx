@@ -74,9 +74,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="index-iframe-father">
-        <iframe id="d5" src="http://wx.sanlics.com/Home.php" frameBorder="0"  className={this.state.showIframe?"index-iframe":'lcb-hide'}></iframe>
+        {/* <iframe id="d5" src="http://wx.sanlics.com/Home.php" frameBorder="0"  className={this.state.showIframe?"index-iframe":'lcb-hide'}></iframe> */}
         {/* 本体部分 */}
-        {/* <div className="margintop"></div>
+        <div className="margintop"></div>
         <section className="bigBox">
           <div className="box" style={{ marginTop: "0" }}>
             <ul className="yycsList">
@@ -163,7 +163,7 @@ export default class Home extends React.Component {
               关闭
             </div>
           </div>
-        </div> */}
+        </div>
 
         <Mycomponent.Mes mes={this.state.mes} />
       </div>

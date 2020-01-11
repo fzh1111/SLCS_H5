@@ -15,6 +15,9 @@ export default class PayWeChat extends React.Component {
 
         var that=this;
 		function onBridgeReady(payJson) {
+		if (payJson.trade_type === 'MWEB') {
+                window.location.href = payJson.mweb_url;
+            }
 			WeixinJSBridge.invoke('getBrandWCPayRequest', payJson,
 				function (res) {
 					if (res.err_msg == "get_brand_wcpay_request:ok") {
@@ -27,7 +30,14 @@ export default class PayWeChat extends React.Component {
 			);
 		}
 		this.setState({ mes: '提交付款...' });
-		common.ajax('/pay/add?sourceType=' + this.state.sourceType + '&sourceIds=' + this.state.sourceIds+'&payType=1', {}, (result) => {
+		var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+		var payts=1;
+if (ua.match(/MicroMessenger/i) == "micromessenger") {
+payts=1;
+}else{
+payts=11;
+}
+		common.ajax('/pay/add?sourceType=' + this.state.sourceType + '&sourceIds=' + this.state.sourceIds+'&payType='+ payts, {}, (result) => {
 			if (result.code == 1) {
 				this.setState({ mes: null });
 				onBridgeReady(result.data);
